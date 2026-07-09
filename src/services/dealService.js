@@ -1,1 +1,2 @@
-// Deal service skeleton
+// dealService skeleton
+module.exports = {};
