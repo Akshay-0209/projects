@@ -1,6 +1,6 @@
-function validateNumber(n) {
-  if (typeof n !== 'number' || isNaN(n) || !isFinite(n)) {
-    throw new Error('Invalid number input');
+function validateNumber(x) {
+  if (typeof x !== 'number' || !isFinite(x)) {
+    throw new Error('Invalid input: operand must be a finite number');
   }
 }
 
@@ -25,7 +25,9 @@ function multiply(a, b) {
 function divide(a, b) {
   validateNumber(a);
   validateNumber(b);
-  if (b === 0) throw new Error('Cannot divide by zero');
+  if (b === 0) {
+    throw new Error('Divide by zero');
+  }
   return a / b;
 }
 
