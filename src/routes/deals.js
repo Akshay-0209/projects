@@ -1,7 +1,6 @@
 const express = require('express');
-
 const router = express.Router();
 
-// Deals route skeleton
+// Placeholder for /api/deals endpoints
 
 module.exports = router;
