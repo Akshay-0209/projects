@@ -1,1 +1,2 @@
-// Customer controller skeleton
+// customerController skeleton
+module.exports = {};
