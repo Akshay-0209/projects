@@ -1,1 +1,3 @@
-// Services index placeholder
+// Export all services
+module.exports = {
+};
