@@ -12,6 +12,10 @@ app.use(express.json());
 // Serve static files from /public
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Import and mount the notes router at /api
+const notesRouter = require('./routes/note');
+app.use('/api', notesRouter);
+
 const PORT = process.env.PORT || 3000;
 const HOST = '0.0.0.0';
 
