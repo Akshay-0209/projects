@@ -1,1 +1,2 @@
-// Auth service skeleton
+// authService skeleton
+module.exports = {};
