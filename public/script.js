@@ -55,6 +55,17 @@
     resetNext = true;
   }
 
+  function formatResult(result) {
+    if (Number.isInteger(result)) {
+      return result.toString();
+    } else {
+      // Use toFixed(6), then remove trailing zeros and possible trailing dot
+      let fixed = result.toFixed(6).replace(/\.0+$/, '').replace(/(\.\d*?[1-9])0+$/, '$1');
+      if (fixed.endsWith('.')) fixed = fixed.slice(0, -1);
+      return fixed;
+    }
+  }
+
   function compute() {
     if (operator && operand != null) {
       let result;
@@ -67,7 +78,9 @@
           case '÷': result = window.calculator.divide(operand, currVal); break;
         }
         if (!isFinite(result)) throw new Error('Error');
-        current = result.toString();
+        // Round and format result for display
+        let resultStr = formatResult(result);
+        current = resultStr;
         setDisplay(current);
         operator = null;
         operand = null;
