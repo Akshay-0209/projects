@@ -1,7 +1,7 @@
 (function() {
   // Calculator logic
   const display = document.getElementById('display');
-  let current = '0', operator = null, operand = null, resetNext = false;
+  let current = '0', operator = null, operand = null, resetNext = false, isError = false;
 
   function setDisplay(val) {
     display.textContent = val;
@@ -12,11 +12,13 @@
     operator = null;
     operand = null;
     resetNext = false;
+    isError = false;
     setDisplay(current);
+    setButtonsDisabled(false);
   }
 
   function backspace() {
-    if (resetNext) return;
+    if (resetNext || isError) return;
     if (current.length > 1) {
       current = current.slice(0, -1);
     } else {
@@ -26,7 +28,8 @@
   }
 
   function inputNumber(num) {
-    if (resetNext) {
+    if (resetNext || isError) {
+      if (isError) return;
       current = num;
       resetNext = false;
     } else {
@@ -37,7 +40,8 @@
   }
 
   function inputDecimal() {
-    if (resetNext) {
+    if (resetNext || isError) {
+      if (isError) return;
       current = '0.';
       resetNext = false;
     } else if (!current.includes('.')) {
@@ -47,6 +51,7 @@
   }
 
   function inputOperator(op) {
+    if (isError) return;
     if (operator && !resetNext) {
       compute();
     }
@@ -56,6 +61,7 @@
   }
 
   function compute() {
+    if (isError) return;
     if (operator && operand != null) {
       let result;
       const currVal = parseFloat(current);
@@ -74,16 +80,29 @@
         resetNext = true;
       } catch (e) {
         setDisplay('Error');
-        current = '0';
-        operator = null;
-        operand = null;
-        resetNext = true;
+        isError = true;
+        setButtonsDisabled(true);
       }
     }
   }
 
+  function setButtonsDisabled(disabled) {
+    document.querySelectorAll('.btn').forEach(btn => {
+      // Don't disable clear/reset buttons
+      if (btn.dataset.action === 'clear' || btn.dataset.action === 'reset') {
+        btn.disabled = false;
+        btn.classList.remove('disabled');
+      } else {
+        btn.disabled = !!disabled;
+        if (disabled) btn.classList.add('disabled');
+        else btn.classList.remove('disabled');
+      }
+    });
+  }
+
   document.querySelectorAll('.btn').forEach(btn => {
     btn.addEventListener('click', function() {
+      if (btn.disabled) return;
       if (btn.dataset.number !== undefined) {
         inputNumber(btn.dataset.number);
       } else if (btn.dataset.action) {
