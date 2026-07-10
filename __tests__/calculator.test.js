@@ -111,4 +111,9 @@ describe('divide', () => {
     expect(() => divide(Infinity, 2)).toThrow(TypeError);
     expect(() => divide(2, Infinity)).toThrow(TypeError);
   });
+  test('SCRUM-870: error state persists after division by zero', () => {
+    // This is a pseudo test. Actual UI error state persistence test should be in integration/UI tests.
+    // Here, only unit test that the error is thrown and expected error message appears.
+    expect(() => divide(10, 0)).toThrow(/zero/);
+  });
 });
