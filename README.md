@@ -1,31 +1,43 @@
 # Notes Manager Web Application
 
-A modern, responsive web app for managing notes. Features full CRUD, search, validation, and real-time UI updates.
+A modern, responsive web app for managing notes, implemented in [PR #55](https://github.com/Akshay-0209/projects/pull/55) (see [Issue #48](https://github.com/Akshay-0209/projects/issues/48)).
 
 ## Features
 - Node.js + Express backend
-- RESTful API with validation and error handling
-- Responsive UI (HTML/CSS/JS)
-- Client-side CRUD & search with real-time updates
-- Jest tests for business logic
+- RESTful API (CRUD: create, read, update, delete notes)
+- Validation and error handling (title/content length, required fields)
+- Responsive, modern UI (HTML, CSS, JS)
+- Real-time search/filtering
+- Jest test suite for business logic
+- In-memory storage (easy DB swap)
 
-## Quick Start
+## Setup
+
 ```bash
 npm install
 npm start
-# Visit http://localhost:3000
+# App runs at: http://localhost:3000
 ```
 
-## API
-- `GET /api/notes?q=search` - List/search notes
-- `POST /api/notes` - Create note `{title, content}`
-- `PUT /api/notes/:id` - Update
-- `DELETE /api/notes/:id` - Delete
+## Usage
+- Browse to http://localhost:3000
+- Create, edit, search, and delete notes
+- All actions update UI in real time
+
+## API Endpoints
+- `GET /api/notes?q=search` — List/search notes (optional query)
+- `POST /api/notes` — Create a note (JSON: `{title, content}`)
+- `PUT /api/notes/:id` — Update a note
+- `DELETE /api/notes/:id` — Delete a note
+
+Errors returned as JSON.
 
 ## Testing
+
 ```bash
 npm test
 ```
+- Runs Jest tests in `__tests__/notes.test.js` covering create, update, delete, search, and validation
 
 ## License
 MIT
